@@ -56,3 +56,5 @@ backend/.env.production
 .vercel/
 node_modules/
 dist/
+.vercel
+.env*
