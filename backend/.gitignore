@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment and sensitive data
+.env
+.env.local
+.env.*.local
+
+# Databases & local stores
+*.db
+*.sqlite
+*.sqlite3
+darzfusion.db
+
+# Vector store and uploads
+chroma_db/
+uploads/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
