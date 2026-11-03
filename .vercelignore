@@ -9,3 +9,4 @@ pytest.ini
 *.sqlite3
 chroma_db/
 uploads/
+
