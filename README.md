@@ -126,3 +126,4 @@ Because ChromaDB and SQLite manage stateful vectors and databases, the backend i
 ## License
 
 Proprietary - Developed for DARZFUSION AI.
+

@@ -1,0 +1,11 @@
+# Exclude Python backend and tests from Vercel static build
+backend/
+tests/
+*.py
+requirements.txt
+pytest.ini
+*.db
+*.sqlite
+*.sqlite3
+chroma_db/
+uploads/
