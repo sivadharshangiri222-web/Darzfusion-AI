@@ -1,0 +1,8 @@
+{
+  "name": "darzfusion-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "mkdir -p dist && cp index.html logo.png logo_full.jpg dist/"
+  }
+}
