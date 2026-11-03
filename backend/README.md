@@ -111,7 +111,7 @@ backend/
 3. **Install dependencies:**
    ```bash
    pip install --upgrade pip
-   pip install -r requirements.txt
+   pip install -r requirements-backend.txt
    ```
 
 4. **Configure environment variables:**
@@ -223,7 +223,7 @@ This backend is pre-configured for seamless deployment to **Render** as a Web Se
    - Environment: `Python 3`
    - Build Command:
      ```bash
-     pip install --upgrade pip && pip install -r requirements.txt
+     pip install --upgrade pip && pip install -r requirements-backend.txt
      ```
    - Start Command:
      ```bash

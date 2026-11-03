@@ -13,7 +13,7 @@ def test_list_models(client):
     assert any("gemini-2.5-flash" in m["id"] for m in models)
 
 
-@patch("app.api.chat.gemini_service.chat", new_callable=AsyncMock)
+@patch("app.routers.chat.gemini_service.chat", new_callable=AsyncMock)
 def test_chat_single_message(mock_chat, client, auth_headers):
     """Test standard chat request."""
     mock_chat.return_value = "Retrieval-Augmented Generation combines retrieval with generative models."
@@ -32,7 +32,7 @@ def test_chat_single_message(mock_chat, client, auth_headers):
     assert data["answer"] == "Retrieval-Augmented Generation combines retrieval with generative models."
 
 
-@patch("app.api.chat.gemini_service.chat", new_callable=AsyncMock)
+@patch("app.routers.chat.gemini_service.chat", new_callable=AsyncMock)
 def test_chat_empty_message_rejected(mock_chat, client):
     """Ensure blank messages are rejected with 400 Bad Request."""
     payload = {"message": "   "}

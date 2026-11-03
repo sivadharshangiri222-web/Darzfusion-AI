@@ -4,7 +4,7 @@ import io
 from unittest.mock import AsyncMock, patch
 
 
-@patch("app.api.audio.audio_service.transcribe", new_callable=AsyncMock)
+@patch("app.routers.audio.audio_service.transcribe", new_callable=AsyncMock)
 def test_audio_transcribe(mock_transcribe, client):
     """Test POST /api/audio/transcribe."""
     mock_transcribe.return_value = {
@@ -23,7 +23,7 @@ def test_audio_transcribe(mock_transcribe, client):
     assert "DARZFUSION" in data["transcription"]
 
 
-@patch("app.api.audio.audio_service.summarize_audio", new_callable=AsyncMock)
+@patch("app.routers.audio.audio_service.summarize_audio", new_callable=AsyncMock)
 def test_audio_summarize(mock_summarize, client):
     """Test POST /api/audio/summarize."""
     mock_summarize.return_value = {

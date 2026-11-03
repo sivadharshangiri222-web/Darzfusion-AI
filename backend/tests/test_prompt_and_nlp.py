@@ -12,7 +12,7 @@ def test_prompt_capabilities(client):
     assert data["maxTokens"] is True
 
 
-@patch("app.api.prompt_lab.gemini_service.generate_text", new_callable=AsyncMock)
+@patch("app.routers.prompt_lab.gemini_service.generate_text", new_callable=AsyncMock)
 def test_prompt_run_zero_shot(mock_gen, client):
     """Test running zero shot prompt."""
     mock_gen.return_value = "Zero shot answer from model"

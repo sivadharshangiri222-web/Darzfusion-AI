@@ -4,7 +4,7 @@ import io
 from unittest.mock import AsyncMock, patch
 
 
-@patch("app.api.documents.rag_service.index_document_chunks", new_callable=AsyncMock)
+@patch("app.routers.documents.rag_service.index_document_chunks", new_callable=AsyncMock)
 def test_upload_txt_document(mock_index, client, auth_headers):
     """Test uploading and indexing a TXT document."""
     mock_index.return_value = 2
@@ -32,7 +32,7 @@ def test_upload_invalid_extension(client, auth_headers):
     assert "unsupported" in response.json()["detail"].lower()
 
 
-@patch("app.api.documents.rag_service.index_document_chunks", new_callable=AsyncMock)
+@patch("app.routers.documents.rag_service.index_document_chunks", new_callable=AsyncMock)
 def test_document_lifecycle_and_ownership(mock_index, client, auth_headers, other_auth_headers):
     """Test upload, retrieval, cross-user isolation, and deletion."""
     mock_index.return_value = 1

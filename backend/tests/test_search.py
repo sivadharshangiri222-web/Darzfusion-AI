@@ -3,7 +3,7 @@
 from unittest.mock import AsyncMock, patch
 
 
-@patch("app.api.search.web_search_service.search_and_ground", new_callable=AsyncMock)
+@patch("app.routers.search.web_search_service.search_and_ground", new_callable=AsyncMock)
 def test_search_endpoint(mock_search, client):
     """Test POST /api/search."""
     mock_search.return_value = {

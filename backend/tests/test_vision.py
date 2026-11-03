@@ -4,7 +4,7 @@ import io
 from unittest.mock import AsyncMock, patch
 
 
-@patch("app.api.vision.vision_service.analyze_image", new_callable=AsyncMock)
+@patch("app.routers.vision.vision_service.analyze_image", new_callable=AsyncMock)
 def test_vision_analyze(mock_analyze, client):
     """Test POST /api/vision/analyze with valid image."""
     mock_analyze.return_value = {

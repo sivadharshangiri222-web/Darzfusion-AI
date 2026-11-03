@@ -11,18 +11,18 @@ from app.database.initialization import init_db
 from app.services.gemini_service import gemini_service
 
 # Import API routers
-from app.api.auth import router as auth_router
-from app.api.chat import router as chat_router
-from app.api.documents import router as documents_router
-from app.api.rag import router as rag_router
-from app.api.search import router as search_router
-from app.api.vision import router as vision_router
-from app.api.audio import router as audio_router
-from app.api.study_tools import router as study_router
-from app.api.history import router as history_router
-from app.api.prompt_lab import router as prompt_lab_router
-from app.api.nlp import router as nlp_router
-from app.api.evaluation import router as evaluation_router
+from app.routers.auth import router as auth_router
+from app.routers.chat import router as chat_router
+from app.routers.documents import router as documents_router
+from app.routers.rag import router as rag_router
+from app.routers.search import router as search_router
+from app.routers.vision import router as vision_router
+from app.routers.audio import router as audio_router
+from app.routers.study_tools import router as study_router
+from app.routers.history import router as history_router
+from app.routers.prompt_lab import router as prompt_lab_router
+from app.routers.nlp import router as nlp_router
+from app.routers.evaluation import router as evaluation_router
 
 # Configure logging
 logging.basicConfig(

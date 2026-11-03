@@ -3,7 +3,7 @@
 from unittest.mock import AsyncMock, patch
 
 
-@patch("app.api.rag.rag_service.answer_with_rag", new_callable=AsyncMock)
+@patch("app.routers.rag.rag_service.answer_with_rag", new_callable=AsyncMock)
 def test_rag_query_endpoint(mock_rag, client):
     """Test POST /api/rag/query with retrieved chunks and grounded answer."""
     mock_rag.return_value = {

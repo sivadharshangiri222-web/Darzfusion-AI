@@ -3,7 +3,7 @@
 from unittest.mock import AsyncMock, patch
 
 
-@patch("app.api.study_tools.study_service.summarize", new_callable=AsyncMock)
+@patch("app.routers.study_tools.study_service.summarize", new_callable=AsyncMock)
 def test_summarize(mock_sum, client):
     """Test text summarization endpoint."""
     mock_sum.return_value = {
@@ -20,7 +20,7 @@ def test_summarize(mock_sum, client):
     assert len(data["key_takeaways"]) == 2
 
 
-@patch("app.api.study_tools.study_service.generate_notes", new_callable=AsyncMock)
+@patch("app.routers.study_tools.study_service.generate_notes", new_callable=AsyncMock)
 def test_notes(mock_notes, client):
     """Test notes generation endpoint."""
     mock_notes.return_value = {
@@ -36,7 +36,7 @@ def test_notes(mock_notes, client):
     assert "Machine Learning" in response.json()["notes_markdown"]
 
 
-@patch("app.api.study_tools.study_service.generate_quiz", new_callable=AsyncMock)
+@patch("app.routers.study_tools.study_service.generate_quiz", new_callable=AsyncMock)
 def test_quiz(mock_quiz, client):
     """Test multiple-choice quiz generation with answer keys."""
     mock_quiz.return_value = {
@@ -61,7 +61,7 @@ def test_quiz(mock_quiz, client):
     assert data["questions"][0]["options"][0] == "yield"
 
 
-@patch("app.api.study_tools.study_service.generate_flashcards", new_callable=AsyncMock)
+@patch("app.routers.study_tools.study_service.generate_flashcards", new_callable=AsyncMock)
 def test_flashcards(mock_fc, client):
     """Test flashcard deck generation."""
     mock_fc.return_value = {
@@ -85,7 +85,7 @@ def test_flashcards(mock_fc, client):
     assert "Atomicity" in data["flashcards"][0]["back"]
 
 
-@patch("app.api.study_tools.study_service.explain_concept", new_callable=AsyncMock)
+@patch("app.routers.study_tools.study_service.explain_concept", new_callable=AsyncMock)
 def test_explain(mock_explain, client):
     """Test concept explainer endpoint."""
     mock_explain.return_value = {
