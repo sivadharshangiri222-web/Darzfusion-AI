@@ -55,3 +55,4 @@ backend/.env.production
 # Vercel & Node Dependencies
 .vercel/
 node_modules/
+dist/
