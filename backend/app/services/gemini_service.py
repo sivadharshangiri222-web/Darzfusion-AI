@@ -15,13 +15,21 @@ class GeminiService:
 
     def __init__(self):
         self.api_key = settings.GEMINI_API_KEY
-        self.is_configured = bool(self.api_key and self.api_key.strip())
+        # Check if a real key is provided rather than empty or placeholder
+        is_placeholder = not self.api_key or self.api_key.strip().lower() in [
+            "",
+            "your-gemini-api-key-here",
+            "your_gemini_api_key_here",
+            "your_api_key_here",
+            "changeme",
+        ]
+        self.is_configured = not is_placeholder
         if self.is_configured:
             genai.configure(api_key=self.api_key)
             logger.info("GeminiService initialized with API key.")
         else:
             logger.warning(
-                "GEMINI_API_KEY is not configured. Real API calls will return configuration guidance."
+                "GEMINI_API_KEY is not configured or using placeholder. Real API calls will return configuration guidance."
             )
 
     def is_available(self) -> bool:
