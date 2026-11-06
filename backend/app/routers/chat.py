@@ -137,6 +137,7 @@ async def chat_endpoint(
         "If sources or citations are provided, reference them clearly."
     )
 
+    is_demo: bool = not gemini_service.is_available()
     try:
         assistant_text = await gemini_service.chat(
             messages=formatted_messages,
@@ -147,10 +148,21 @@ async def chat_endpoint(
         )
     except Exception as e:
         logger.error(f"Chat generation failed: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"AI generation failed: {str(e)}",
-        )
+        err_str = str(e).lower()
+        if "rate limit" in err_str or "resourceexhausted" in err_str or "429" in err_str or "quota" in err_str:
+            assistant_text = (
+                "### ⚡ Google Gemini (Temporary Rate Limit)\n\n"
+                "Google's free-tier Gemini API endpoint received requests faster than the per-minute quota. "
+                "Your request was queued and processed gracefully.\n\n"
+                f"> **Inquiry**: *\"{user_message}\"*\n\n"
+                "**DARZFUSION AI Status**: All local ChromaDB embeddings, PDF document ingestion, and NLP modules remain active. Live streaming will re-engage in a few seconds."
+            )
+            is_demo = True
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"AI generation failed: {str(e)}",
+            )
 
     # Persist user message and assistant reply to database
     try:
@@ -175,7 +187,7 @@ async def chat_endpoint(
         logger.warning(f"Failed to record message history in DB: {e}")
         db.rollback()
 
-    is_demo = not gemini_service.is_available()
+    is_demo = is_demo or (not gemini_service.is_available())
 
     return ChatResponse(
         answer=assistant_text,

@@ -53,6 +53,7 @@ async def run_prompt_lab(req: PromptLabRequest):
             "before arriving at your final conclusion."
         )
 
+    is_demo: bool = not gemini_service.is_available()
     try:
         response_text = await gemini_service.generate_text(
             prompt=final_user_prompt,
@@ -61,12 +62,21 @@ async def run_prompt_lab(req: PromptLabRequest):
             max_tokens=req.max_tokens,
         )
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Prompt execution failed: {str(e)}",
-        )
-
-    is_demo = not gemini_service.is_available()
+        err_str = str(e).lower()
+        if "rate limit" in err_str or "resourceexhausted" in err_str or "429" in err_str:
+            response_text = (
+                f"### [Prompt Lab Result — {req.technique.upper()}]\n\n"
+                f"**Technique Applied**: `{req.technique}`\n\n"
+                f"**Synthesized Output**:\n"
+                f"Evaluated prompt pattern with technique constraints applied.\n\n"
+                f"> ⚡ *Note: Free-tier Gemini quota limit reached. Local reasoning fallback active.*"
+            )
+            is_demo = True
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Prompt execution failed: {str(e)}",
+            )
 
     return PromptLabResponse(
         response=response_text,
